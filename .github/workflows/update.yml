@@ -1,5 +1,8 @@
 name: Merge and Deduplicate Lists
 
+permissions:
+  contents: write
+
 on:
   schedule:
     - cron: '30 2 * * *'
