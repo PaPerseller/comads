@@ -17,6 +17,7 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.x'
+          check-latest: true
 
       - name: Install requests
         run: pip install requests
@@ -29,15 +30,3 @@ jobs:
         with:
           commit_message: "Auto Update"
           file_pattern: comads.txt
-
-  cleanup:
-    needs: [merge_lists]
-    runs-on: ubuntu-latest
-    steps:
-      - name: Delete workflow runs
-        uses: Mattraks/delete-workflow-runs@v2
-        with:
-          token: ${{ github.token }}
-          repository: ${{ github.repository }}
-          retain_days: 15
-          keep_minimum_runs: 7
