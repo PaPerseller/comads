@@ -1,0 +1,44 @@
+name: Generate httpdns-cn Lists
+
+on:
+  schedule:
+    - cron: '0 5 1 * *'
+  workflow_dispatch:
+
+jobs:
+  merge_lists:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.x'
+          check-latest: true
+
+      #- name: Install requests
+        #run: pip install requests
+
+      - name: Run merge script
+        run: python httpdns.py
+
+      - name: Commit changes
+        uses: stefanzweifel/git-auto-commit-action@v6
+        with:
+          commit_message: "Auto Update"
+          file_pattern: httpdns-cn.txt
+  
+  cleanup:
+    needs: [merge_lists]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Delete workflow runs
+        uses: Mattraks/delete-workflow-runs@v2
+        with:
+          token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          keep_minimum_runs: 7
+
