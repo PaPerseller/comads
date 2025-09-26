@@ -1,7 +1,7 @@
 import os
 
 def process_httpdns_rules():
-    output_dir = "/"
+    output_dir = "/root"
     output_file = os.path.join(output_dir, "httpdns-cn.txt")
     
     # 原始文件的URL
