@@ -30,11 +30,7 @@ jobs:
         with:
           commit_message: "Auto Update"
           file_pattern: comads.txt
-  
-  cleanup:
-    needs: [merge_lists]
-    runs-on: ubuntu-latest
-    steps:
+      
       - name: Delete workflow runs
         uses: Mattraks/delete-workflow-runs@v2
         with:
@@ -42,4 +38,3 @@ jobs:
           repository: ${{ github.repository }}
           retain_days: 15
           keep_minimum_runs: 7
-
